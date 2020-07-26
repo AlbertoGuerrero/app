@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Relaciones</title>
+</head>
+<body>
+    <h2>1. Tabla: Categorías</h2>
+    <table border="1" style="width:300px">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>DESCRIPCIÓN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="tmpCategoria:${categorias}">
+                <td th:text="${tmpCategoria.id}"></td>
+                <td th:text="${tmpCategoria.nombre}"></td>
+                <td th:text="${tmpCategoria.descripcion}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>MANY TO MANY </h1>
+    <h2>2. Posts Asociados a [[${tag_1}]]</h2>
+    <table border="1" style="width:300px">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tmpPost:${post_tag_1}">
+            <td th:text="${tmpPost.id}"></td>
+            <td th:text="${tmpPost.title}"></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

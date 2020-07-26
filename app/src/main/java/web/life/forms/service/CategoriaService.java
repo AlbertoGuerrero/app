@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import web.life.forms.jpa.CategoriaRepository;
 import web.life.forms.model.Categoria;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,11 @@ public class CategoriaService implements ICategoriaService{
     }
 
     @Override
+    public List<Categoria> findAll() {
+        return categoriaRepository.findAll();
+    }
+
+    @Override
     public Categoria searchByName(String name) {
         System.out.println(categoriaRepository.findCategoriaByNombre(name));
         return categoriaRepository.findCategoriaByNombre(name);
@@ -35,6 +41,11 @@ public class CategoriaService implements ICategoriaService{
     @Override
     public void save(Categoria categoria) {
         categoriaRepository.save(categoria);
+    }
+
+    @Override
+    public void deleteAll() {
+        categoriaRepository.deleteAll();
     }
 
     @Override
