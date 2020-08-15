@@ -163,6 +163,7 @@ public class HomeController {
     public String searchView(Model model) {
         model.addAttribute("searchLabel", "Busqueda por descripción, vacío devuelve todas");
         model.addAttribute("searchButton", "Buscar");
+        model.addAttribute("categoria", new Categoria());
         return "search";
     }
 
@@ -182,7 +183,7 @@ public class HomeController {
     }
 
     @GetMapping("/categories/search")
-    public String showCategoriesListAjax(@ModelAttribute("descripcion") Categoria categoria, Model model) {
+    public String showCategoriesListAjax(@ModelAttribute("categoria") Categoria categoria, Model model) {
         ExampleMatcher matcher = ExampleMatcher.matching().withMatcher("descripcion", ExampleMatcher.GenericPropertyMatchers.contains());
         Example<Categoria> example = Example.of(categoria, matcher);
         List<Categoria> categoriesList = categoriaService.findByExample(example);

@@ -6,6 +6,7 @@
     <title>Title</title>
 </head>
 <body>
+<div th:fragment="resultsList" th:if="${#lists.size(categories) == 0}" class="results-block">No existen resultados para esta búsqueda!</div>
     <div th:fragment="resultsList" th:unless="${#lists.isEmpty(categories)}" class="results-block">
         <table border="2">
             <thead>

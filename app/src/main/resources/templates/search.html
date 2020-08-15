@@ -7,10 +7,10 @@
     <title>AJAX Example</title>
 </head>
 <body>
-    <form>
+    <form th:object="${categoria}">
         <span class="subtitle">Busqueda de categorías</span>
         <div class="listBlock">
-            <input type="text" id="descripcion" name="descripcion"/>
+            <input type="text" id="descripcion" th:field="${categoria.descripcion}"/>
             <br />
             <label for="descripcion" th:text="${searchLabel}">Search label:</label>
             <button id="searchButton" name="searchButton" onclick="retrieveCategories()" type="button"
