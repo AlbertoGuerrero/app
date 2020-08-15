@@ -1,9 +1,14 @@
 package web.life.forms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import web.life.forms.model.Categoria;
 import web.life.forms.model.Post;
 import web.life.forms.model.Tag;
@@ -25,7 +30,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String showHome(Model model) {
-        model.addAttribute("message","Bienvenido a App!");
+        model.addAttribute("message", "Bienvenido a App!");
         model.addAttribute("date", new Date());
 
         return "home";
@@ -152,5 +157,36 @@ public class HomeController {
             relationshipService.saveTag(tag6);
         }
         return "relationship";
+    }
+
+    @GetMapping("/searchView")
+    public String searchView(Model model) {
+        model.addAttribute("searchLabel", "Busqueda por descripción, vacío devuelve todas");
+        model.addAttribute("searchButton", "Buscar");
+        return "search";
+    }
+
+    @GetMapping("/categories/{searchText}")
+    public String showCategoriesList(@PathVariable("searchText") String searchText, Model model) {
+        if (!searchText.equals("all")) {
+            Categoria cat = new Categoria();
+            cat.setDescripcion(searchText);
+            ExampleMatcher matcher = ExampleMatcher.matching().withMatcher("descripcion", ExampleMatcher.GenericPropertyMatchers.contains());
+            Example<Categoria> example = Example.of(cat, matcher);
+            List<Categoria> categoriesList = categoriaService.findByExample(example);
+            model.addAttribute("categories", categoriesList);
+        } else {
+            model.addAttribute("categories", categoriaService.findAll());
+        }
+        return "fragments/listCategories :: resultsList";
+    }
+
+    @GetMapping("/categories/search")
+    public String showCategoriesListAjax(@ModelAttribute("descripcion") Categoria categoria, Model model) {
+        ExampleMatcher matcher = ExampleMatcher.matching().withMatcher("descripcion", ExampleMatcher.GenericPropertyMatchers.contains());
+        Example<Categoria> example = Example.of(categoria, matcher);
+        List<Categoria> categoriesList = categoriaService.findByExample(example);
+        model.addAttribute("categories", categoriesList);
+        return "fragments/listCategories :: resultsList";
     }
 }

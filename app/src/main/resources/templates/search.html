@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>AJAX Example</title>
+</head>
+<body>
+    <form>
+        <span class="subtitle">Busqueda de categorías</span>
+        <div class="listBlock">
+            <input type="text" id="descripcion" name="descripcion"/>
+            <br />
+            <label for="descripcion" th:text="${searchLabel}">Search label:</label>
+            <button id="searchButton" name="searchButton" onclick="retrieveCategories()" type="button"
+                    th:text="${searchButton}">Search Button</button>
+        </div>
+
+        <!-- Se muestra el resultado via AJAX -->
+        <div id="resultsBlock">
+
+        </div>
+
+    </form>
+
+    <script type="text/javascript">
+        /*function retrieveCategories() {
+            var url = '/categories';
+
+            if ($("#descripcion").val() != '' ) {
+                url = url + "/" + $("#descripcion").val();
+            } else {
+                url = url + "/" + "all";
+            }
+
+            $("#resultsBlock").load(url);
+        }*/
+
+        function retrieveCategories() {
+            $.ajax({
+                type : 'GET',
+                url : '/categories/search',
+                datatype : 'json',
+                data : {descripcion:$("#descripcion").val()},
+                success : function(data) {
+                    $("#resultsBlock").html(data);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

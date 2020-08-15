@@ -22,7 +22,7 @@ public class Post {
         this.title = title;
     }
 
-    @ManyToMany( fetch = FetchType.LAZY,
+    @ManyToMany( fetch = FetchType.EAGER,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH } )
     @JoinTable( name = "post_tag", joinColumns = @JoinColumn( name = "post_id" ),
             inverseJoinColumns = @JoinColumn( name = "tag_id" ) )

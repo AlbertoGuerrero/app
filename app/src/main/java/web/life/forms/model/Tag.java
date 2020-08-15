@@ -16,9 +16,8 @@ public class Tag {
 
     // Con FetchType.EAGER carga todos los elementos
     @ManyToMany( fetch = FetchType.EAGER,
-            cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH } )
-    @JoinTable( name = "Post_Tag", joinColumns = @JoinColumn( name = "tag_id" ),
-            inverseJoinColumns = @JoinColumn( name = "post_id" ) )
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH },
+            mappedBy = "tags")
     private List<Post> posts = new ArrayList<>();
 
     public Tag() {

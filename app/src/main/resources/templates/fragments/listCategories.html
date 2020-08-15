@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="resultsList" th:unless="${#lists.isEmpty(categories)}" class="results-block">
+        <table border="2">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="category : ${categories}">
+                    <td th:text="${category.id}"></td>
+                    <td th:text="${category.nombre}"></td>
+                    <td th:text="${category.descripcion}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

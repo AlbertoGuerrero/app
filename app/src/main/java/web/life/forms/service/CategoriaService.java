@@ -2,6 +2,7 @@ package web.life.forms.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import web.life.forms.jpa.CategoriaRepository;
 import web.life.forms.model.Categoria;
@@ -36,6 +37,11 @@ public class CategoriaService implements ICategoriaService{
     public Categoria searchByName(String name) {
         System.out.println(categoriaRepository.findCategoriaByNombre(name));
         return categoriaRepository.findCategoriaByNombre(name);
+    }
+
+    @Override
+    public List<Categoria> findByExample(Example<Categoria> example) {
+        return categoriaRepository.findAll(example);
     }
 
     @Override
